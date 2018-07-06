@@ -1,0 +1,78 @@
+extends layout
+
+block stylesheets
+    link(rel='stylesheet', href='/css/main.css')
+
+block content
+    .container
+        .col-sm-12.col-md-8.col-lg-6.mx-auto
+            form#registerForm.form-horizontal(method='post', action='/user/register', enctype="multipart/form-data", novalidate='novalidate')
+                .form-group
+                    .row
+                        //label.col-sm-4.control-label(for='name') Name
+                        .col-12
+                            input#name.form-control(type='text', name='name', placeholder='Name', aria-required='true', aria-describedby='name-error', aria-invalid='false')
+                            if (errors)
+                                if (errors.name)
+                                    #name-error.error.invalid-feedback= errors.name.msg
+                .form-group
+                    .row
+                        //label.col-sm-4.control-label(for='username') Username
+                        .col-12
+                            input#username.form-control(type='text', name='username', placeholder='Username', aria-required='true', aria-describedby='username-error', aria-invalid='false')
+                            if (errors)
+                                if (errors.username)
+                                    #username-error.error.invalid-feedback= errors.username.msg
+                .form-group
+                    .row
+                        //label.col-sm-4.control-label(for='email') Email
+                        .col-12
+                            input#email.form-control(type='text', name='email', placeholder='Email', aria-required='true', aria-describedby='email-error', aria-invalid='false')
+                            if (errors)
+                                if (errors.email)
+                                    #email-error.error.invalid-feedback= errors.email.msg
+                .form-group
+                    .row
+                        //label.col-sm-4.control-label(for='password') Password
+                        .col-12
+                            input#password.form-control.validate-equalTo-blur(type='password', name='password', placeholder='Password', aria-required='true', aria-describedby='password-error', aria-invalid='false')
+                            if (errors)
+                                if (errors.password)
+                                    #password-error.error.invalid-feedback= errors.password.msg
+                .form-group
+                    .row
+                        //label.col-sm-4.control-label(for='password2') Confirm password
+                        .col-12
+                            input#password2.form-control(type='password', name='password2', placeholder='Confirm password', aria-required='true', aria-describedby='password2-error', aria-invalid='false')
+                            if (errors)
+                                if (errors.password2)
+                                    #password2-error.error.invalid-feedback= errors.password2.msg
+                .form-group
+                    .row
+                        //label.col-sm-4.control-label(for='profileImg') Profile Image:
+                        .col-12
+                            input#profileImg.form-control(type='file', name='profileImg', placeholder='Profile Image', aria-describedby='profileImg-error', aria-invalid='false')
+                            if (errors)
+                                if (errors.profileImg)
+                                    #profileImg-error.error.invalid-feedback= errors.profileImg.msg
+                .form-group
+                    .row
+                        .col-12
+                            .checkbox
+                                label
+                                    input#agree(type='checkbox', name='agree', value='agree', aria-required='true', aria-describedby='agree-error', aria-invalid='false')
+                                    |  Please agree to our policy
+                .form-group
+                    .row
+                        .col-12
+                            button.btn.btn-primary.btn-block(type='submit', value='Sign up') Sign up
+            p.offset-sm-4 Have an account?
+                a(href='/user/login') Login
+
+block scripts
+    scripts(src='/plugins/jquery.form.min.js')
+    script(src='/bower_components/jquery-validation/dist/jquery.validate.min.js')
+    script(src='/bower_components/jquery-validation/dist/additional-methods.min.js')
+    script(src='/js/main.js')
+
+

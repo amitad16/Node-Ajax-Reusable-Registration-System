@@ -1,0 +1,22 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    a.navbar-brand(href='/') PassportLogin
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#toggle',
+    aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+    #toggle.collapse.navbar-collapse
+        ul.navbar-nav
+            li.nav-item.active
+                a.nav-link(href='/') Home
+            li.nav-item
+                a.nav-link(href='#') Link1
+            li.nav-item
+                a.nav-link(href='#') Link2
+        ul.navbar-nav.ml-auto
+            if (user)
+                li.nav-item
+                    a.nav-link(href='/user/logout') Logout
+            else
+                li.nav-item
+                    a.nav-link(href='/user/login') Login
+                li.nav-item
+                    a.nav-link(href='/user/register') Register

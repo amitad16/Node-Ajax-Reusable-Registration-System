@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    .container
+        != messages()
+        h1= user.name
+        p= user.username
+        p= user.email
+        if (user.profileImg)
+            img(src='/images/uploads/' + user.profileImg.filename)

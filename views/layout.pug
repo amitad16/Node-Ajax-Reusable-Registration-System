@@ -1,0 +1,12 @@
+doctype html
+html
+    head
+        title= title
+        link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
+        block stylesheets
+    body
+        include ./includes/navbar.pug
+        block content
+        script(src='/bower_components/jquery/dist/jquery.js')
+        script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+        block scripts

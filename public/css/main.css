@@ -1,0 +1,30 @@
+#messages > ul.error,
+#messages > ul.success {
+    list-style: none;
+    padding-left: 0;
+}
+
+#messages > ul.error > li,
+#messages > ul.success > li {
+    color: #FFF;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+#messages > ul.error > li {
+    background-color: #d64242;
+}
+
+#messages > ul.success > li {
+    background-color: #119b31;
+}
+
+@media (min-width: 768px) {
+    .form-horizontal .control-label {
+        padding-top: 7px;
+        margin-bottom: 0;
+        text-align: right;
+    }
+}

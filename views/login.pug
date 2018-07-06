@@ -1,0 +1,49 @@
+extends layout
+
+block stylesheets
+    link(rel='stylesheet', href='/css/main.css')
+
+block content
+    .container
+        .col-sm-12.col-md-8.col-lg-6.mx-auto
+            .row
+                .col-12
+                    != messages()
+            form#loginForm.form-horizontal(method='post', action='/user/login', novalidate='novalidate')
+                .form-group
+                    .row
+                        //label.col-sm-4.control-label(for='username') Username
+                        .col-12
+                            input#username.form-control(type='text', name='username', placeholder='Username', aria-required='true', aria-describedby='username-error', aria-invalid='false')
+                            if (errors)
+                                if (errors.username)
+                                    #username-error.error.invalid-feedback= errors.username.msg
+                .form-group
+                    .row
+                        //label.col-sm-4.control-label(for='password') Password
+                        .col-12
+                            input#password.form-control.validate-equalTo-blur(type='password', name='password', placeholder='Password', aria-required='true', aria-describedby='password-error', aria-invalid='false')
+                            if (errors)
+                                if (errors.password)
+                                    #password-error.error.invalid-feedback= errors.password.msg
+                .form-group
+                    .row
+                        .col-12
+                            button.btn.btn-primary.btn-block(type='submit', value='Login') Login
+                .form-group
+                    .row
+                        .col-12
+                            .checkbox.float-left
+                                label
+                                    input#agree(type='checkbox', name='rememberme', value='rememberme', aria-required='true', aria-describedby='rememberme-error', aria-invalid='false')
+                                    |  Remember me
+                            p.float-right
+                                a(href='/user/forgotPassword') Forgot Password?
+                p.offset-sm-4 Not registered yet?
+                    a(href='/user/register') Register
+
+block scripts
+    scripts(src='/plugins/jquery.form.min.js')
+    script(src='/bower_components/jquery-validation/dist/jquery.validate.min.js')
+    script(src='/bower_components/jquery-validation/dist/additional-methods.min.js')
+    script(src='/js/main.js')
