@@ -77,6 +77,7 @@ router.post('/login', ifNotLoggedIn, (req, res, next) => {
   })(req, res, next);
 });
 
+
 // Forgot Password
 router.post('/forgotPassword', ifNotLoggedIn, (req, res) => {
   const resetToken = jwt.sign({email: req.body.email.toString(), access: 'resetpassword'}, process.env.JWT_SECRET, { expiresIn: '24h' }).toString();

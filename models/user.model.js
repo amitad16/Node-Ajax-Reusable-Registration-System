@@ -115,7 +115,6 @@ UserSchema.statics.comparePassword = (userPassword, hash, callback) => {
   bcrypt.compare(userPassword, hash, (err, isMatch) => {
     if(err) throw err;
     callback(null, isMatch);
-  console.log('user: ', user);
   });
 };
 
