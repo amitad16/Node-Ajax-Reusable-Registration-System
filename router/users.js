@@ -7,17 +7,11 @@ const { upload } = require('./helper/multerConfigurations');
 const { ifLoggedIn, ifNotLoggedIn } = require('./helper/accessControlAndValidator');
 
 router.get('/:username', ifLoggedIn, (req, res, next) => {
-  User.findOne({ username: req.user.username })
-    .select({name: 1, username: 1, email: 1, 'profileImg.filename': 1})
-    .exec()
-    .then(user => {
-      res.status(200).render('users/index', { user });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: err
-      });
-    });
+  res.status(200).render('users/index', { user: req.user });
+});
+
+router.get('/:username/profile', ifLoggedIn, (req, res, next) => {
+  res.render('users/profile', { user: req.user });
 });
 
 module.exports = router;

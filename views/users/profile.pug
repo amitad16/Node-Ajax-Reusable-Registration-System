@@ -1,0 +1,36 @@
+extends ../layout
+
+block stylesheets
+    link(rel='stylesheet', href='/css/user-profile.css')
+block content
+    //
+      User Profile Sidebar by @keenthemes
+      A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+      Licensed under MIT
+    .container
+        .row.profile
+            .col-md-3
+                .profile-sidebar
+                    // SIDEBAR USERPIC
+                    .profile-userpic
+                        if (user.profileImg)
+                            img.rounded.mx-auto.d-block(src='/images/uploads/' + user.profileImg.filename)
+                    // END SIDEBAR USERPIC
+                    // SIDEBAR USER TITLE
+                    .profile-usertitle
+                        .profile-usertitle-name= user.name
+                    // END SIDEBAR USER TITLE
+                    // SIDEBAR BUTTONS
+                    .profile-userbuttons
+                        button.btn.btn-success.btn-sm(type='button') Follow
+                        button.btn.btn-danger.btn-sm(type='button') Message
+                    // END SIDEBAR BUTTONS
+                    // SIDEBAR MENU
+                    nav.nav.flex-column.profile-usermenu
+                        a.nav-link.active(href='#') Active
+                        a.nav-link(href='#') Link
+                        a.nav-link(href='#') Link
+                        a.nav-link(href='#') Link
+            .col-md-9
+                .profile-content
+                    | Some user related content goes here...

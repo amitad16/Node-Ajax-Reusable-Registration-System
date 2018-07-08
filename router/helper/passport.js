@@ -28,7 +28,7 @@ exports.passportConfig = () => {
   });
 
   passport.deserializeUser((id, done) => {
-    User.getUserById(id, (err, user) => {
+    User.getUserById(id, {'_id': 1, 'name': 1, 'username': 1, 'email': 1, 'profileImg.filename': 1}, (err, user) => {
       done(err, user);
     });
   });

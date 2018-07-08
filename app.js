@@ -66,11 +66,11 @@ app.use((req, res, next) => {
  * End setting middleware
  */
 
-// app.get('*', function(req,res,next) {
-//   //local variable to hold user info
-//   res.locals.user = req.user ||  null;
-//   next();
-// });
+app.get('*', function(req,res,next) {
+  //local variable to hold user info
+  res.locals.user = req.user ||  null;
+  next();
+});
 
 /**
  * Initializing routes

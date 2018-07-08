@@ -70,6 +70,7 @@ router.post('/register', ifNotLoggedIn, upload, (req, res, next) => {
 passportConfig.passportConfig();
 
 router.post('/login', ifNotLoggedIn, (req, res, next) => {
+  // console.log(req);
   passport.authenticate('local', {
     successRedirect: `/users/${req.body.username}`,
     failureRedirect: '/user/login',

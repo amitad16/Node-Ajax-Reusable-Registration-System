@@ -98,9 +98,9 @@ UserSchema.statics.findByCredentials = function (username, callback) {
   User.findOne(query, callback);
 };
 
-UserSchema.statics.getUserById = function (id, callback) {
+UserSchema.statics.getUserById = function (id, parameters, callback) {
   let User = this;
-  User.findById(id, callback);
+  User.findById(id, parameters, callback);
 };
 
 // Helper functions ***************************************************************
