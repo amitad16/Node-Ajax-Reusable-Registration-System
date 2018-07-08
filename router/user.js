@@ -12,12 +12,12 @@ const passportConfig = require('./helper/passport');
 
 // Register Form
 router.get('/register', ifNotLoggedIn, (req, res, next) => {
-  res.render('register', { title: 'Register' });
+  res.render('user/register', { title: 'Register' });
 });
 
 // Login Form
 router.get('/login', ifNotLoggedIn, (req, res, next) => {
-  res.render('login', { title: 'Login' });
+  res.render('user/login', { title: 'Login' });
 });
 
 router.get('/logout', ifLoggedIn, (req, res, next) => {
@@ -27,12 +27,12 @@ router.get('/logout', ifLoggedIn, (req, res, next) => {
 });
 
 router.get('/forgotPassword', ifNotLoggedIn, (req, res, next) => {
-  res.render('forgotPassword');
+  res.render('user/forgotPassword');
 });
 
 router.get('/resetPassword/:resetToken', ifNotLoggedIn, (req, res, next) => {
   const resetToken = req.params.resetToken;
-  res.render('resetPassword', { resetToken });
+  res.render('user/resetPassword', { resetToken });
 });
 
 // Process Register
@@ -57,7 +57,7 @@ router.post('/register', ifNotLoggedIn, upload, (req, res, next) => {
         if (err.errors.password) {
           errors.password = { msg: err.errors.password.message };
         }
-        res.render('register', { errors });
+        res.render('user/register', { errors });
       }
     } else {
       req.flash('success', 'You are registered and can login');
@@ -116,20 +116,20 @@ router.post('/forgotPassword', ifNotLoggedIn, (req, res) => {
           transporter.sendMail(message, (err, info) => {
             if (err) {
               req.flash('error', 'Email sent error');
-              res.render('forgotPassword');
+              res.render('user/forgotPassword');
             }
             req.flash('success', 'Check your inbox for the next steps. If you don\'t receive an email, and it\'s not in your spam folder this could mean you signed up with a different address.');
-            res.render('forgotPassword', { 'success': true });
+            res.render('user/forgotPassword', { 'success': true });
           });
         })
     } else {
       req.flash('success', 'Check your inbox for the next steps. If you don\'t receive an email, and it\'s not in your spam folder this could mean you signed up with a different address.');
-      res.render('forgotPassword', { 'success': true });
+      res.render('user/forgotPassword', { 'success': true });
     }
     })
     .catch(err => {
       req.flash('error', `Some error occured: ${err}`);
-      res.render('forgotPassword');
+      res.render('user/forgotPassword');
     });
 });
 

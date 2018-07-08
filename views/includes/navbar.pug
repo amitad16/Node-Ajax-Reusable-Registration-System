@@ -1,20 +1,37 @@
 nav.navbar.navbar-expand-lg.navbar-light.bg-light
-    a.navbar-brand(href='/') PassportLogin
+    if (user)
+        a.navbar-brand(href='/users/' + user.username) FullRegSystem
+    else
+        a.navbar-brand(href='/') FullRegSystem
     button.navbar-toggler(type='button', data-toggle='collapse', data-target='#toggle',
     aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
         span.navbar-toggler-icon
     #toggle.collapse.navbar-collapse
         ul.navbar-nav
-            li.nav-item.active
-                a.nav-link(href='/') Home
-            li.nav-item
-                a.nav-link(href='#') Link1
-            li.nav-item
-                a.nav-link(href='#') Link2
+            if (user)
+                li.nav-item.active
+                    a.nav-link(href='/users/' + user.username) Home
+                li.nav-item
+                    a.nav-link(href='#') Link1
+                li.nav-item
+                    a.nav-link(href='#') Link2
+            else
+                li.nav-item.active
+                    a.nav-link(href='/') Home
+                li.nav-item
+                    a.nav-link(href='#') Link1
+                li.nav-item
+                    a.nav-link(href='#') Link2
         ul.navbar-nav.ml-auto
             if (user)
-                li.nav-item
-                    a.nav-link(href='/user/logout') Logout
+                li.nav-item.dropdown
+                    a#manageDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        | #{user.email}
+                    .dropdown-menu(aria-labelledby='manageDropdown')
+                        a.dropdown-item(href='/users/' + user.username + '/profile') Profile
+                        a.dropdown-item(href='/users/' + user.username + '/settings') Settings
+                        .dropdown-divider
+                        a.dropdown-item(href='/user/logout') Logout
             else
                 li.nav-item
                     a.nav-link(href='/user/login') Login

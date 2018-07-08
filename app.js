@@ -1,32 +1,41 @@
+/**
+ * Configuration file
+ * Setting environment variables
+ */
 require('./server/config/config');
 
+// Requiring dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
-const logger = require('morgan');
 
 const path = require('path');
 
+// Setting port using environment variable initialized @{config.js} file
 const port = process.env.PORT;
 
-// Route Files
+// Route handler files required
 const indexRouter = require('./router/index');
 const userRouter = require('./router/user');
 const usersRouter = require('./router/users');
 
-// App initialize
+/**
+ * Express App initialized
+ * @type {*|Function}
+ */
 const app = express();
 
-// View Setup
+// Configuration of view engine and directory
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// Logger
-// app.use(logger('dev'));
-
+/**
+ * Setting middleware
+ */
+// Cookie parser Middleware
 app.use(cookieParser());
 
 // Body Parser Middleware
@@ -53,13 +62,19 @@ app.use((req, res, next) => {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
+/**
+ * End setting middleware
+ */
 
-app.get('*', function(req,res,next) {
-  //local variable to hold user info
-  res.locals.user = req.user ||  null;
-  next();
-});
+// app.get('*', function(req,res,next) {
+//   //local variable to hold user info
+//   res.locals.user = req.user ||  null;
+//   next();
+// });
 
+/**
+ * Initializing routes
+ */
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/users', usersRouter);
@@ -71,7 +86,7 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handler
+// Error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
@@ -82,4 +97,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// Run the app
 app.listen(port, () => console.log(`Listening to port ${ port }`));

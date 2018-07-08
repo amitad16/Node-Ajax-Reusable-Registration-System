@@ -7,7 +7,7 @@ const { ifLoggedIn, ifNotLoggedIn } = require('./helper/accessControlAndValidato
 
 // ROUTES////////////////////////////////////////////////////////////////
 router.get('/', ifNotLoggedIn, (req, res, next) => {
-  res.render('users');
+  res.render('index');
 });
 
 module.exports = router;

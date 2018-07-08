@@ -11,7 +11,7 @@ router.get('/:username', ifLoggedIn, (req, res, next) => {
     .select({name: 1, username: 1, email: 1, 'profileImg.filename': 1})
     .exec()
     .then(user => {
-      res.status(200).render('index', { user });
+      res.status(200).render('users/index', { user });
     })
     .catch(err => {
       res.status(500).json({
