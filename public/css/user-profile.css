@@ -110,10 +110,6 @@ body {
 }
 
 @media (min-width: 768px) {
-    .container {
-        max-width: 100%;
-    }
-
     .form-horizontal .control-label {
         padding-top: 7px;
         margin-bottom: 0;

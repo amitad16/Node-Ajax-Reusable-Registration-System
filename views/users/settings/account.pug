@@ -20,7 +20,7 @@ block content
                     nav.nav.flex-column.profile-usermenu
                         a.nav-link(class=title === 'Profile Setting' ? 'active' : undefined, href='profile') Profile
                         a.nav-link(class=title === 'Account Setting' ? 'active' : undefined, href='account') Account
-                        button.btn.btn-success(type='button') Save Changes
+
             .col-md-9
                 .profile-content
                     .container
@@ -69,7 +69,7 @@ block content
                                     .row
                                         label.col-sm-12.col-md-4.control-label(for='username') Username
                                         .col-sm-12.col-md-8
-                                            input#username.form-control(type='text', name='username', placeholder='Username', aria-required='true', aria-describedby='username-error', aria-invalid='false')
+                                            input#username.form-control(type='text', name='username', value=user.username, placeholder='Username', aria-required='true', aria-describedby='username-error', aria-invalid='false')
                                             if (errors)
                                                 if (errors.username)
                                                     #username-error.error.invalid-feedback= errors.username.msg

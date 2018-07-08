@@ -1,7 +1,6 @@
 // Access Control
 let ifLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
-    // console.log(req);
     return next();
   } else {
     req.flash('error', 'You are not authorized to view that page.');
@@ -14,12 +13,10 @@ let ifNotLoggedIn = (req, res, next) => {
     return next();
   } else {
     req.flash('error', 'You are not authorized to view that page.');
-    // console.log(req.originalUrl);
     if (req.originalUrl.split('/')[3] === 'users') {
-      let username = req.originalUrl.split('/')[4];
-      res.redirect(`/users/${username}`);
+      res.redirect(`/users/${req.user.username}`);
     } else {
-      res.json({ error: 'Route Error' });
+      res.redirect(`/users/${req.user.username}`);
     }
   }
 };
