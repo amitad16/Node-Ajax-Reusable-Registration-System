@@ -17,10 +17,12 @@ const path = require('path');
 // Setting port using environment variable initialized @{config.js} file
 const port = process.env.PORT;
 
-// Route handler files required
+// Route handler files
 const indexRouter = require('./router/index');
-const userRouter = require('./router/user');
-const usersRouter = require('./router/users');
+const userRouter = require('./router/user/user');
+const usersRouter = require('./router/users/users');
+const usersSettingsRouter = require('./router/users/settings/settings');
+const usersSettingsAccountRouter = require('./router/users/settings/account/account');
 
 /**
  * Express App initialized
@@ -78,6 +80,8 @@ app.get('*', function(req,res,next) {
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/users', usersRouter);
+app.use('/users/:username/settings', usersSettingsRouter);
+app.use('/users/:username/settings/account', usersSettingsAccountRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

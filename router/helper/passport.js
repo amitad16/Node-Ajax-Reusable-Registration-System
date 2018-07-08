@@ -11,8 +11,7 @@ exports.passportConfig = () => {
         if (!user) {
           return done(null, false, {message: 'Invalid Username or Password'});
         }
-        User.comparePassword(password, user.password, (err, isMatch) => {
-          if(err) throw err;
+        User.comparePassword(password, user.password, (isMatch) => {
           if(isMatch){
             return done(null, user);
           } else {

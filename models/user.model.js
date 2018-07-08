@@ -91,6 +91,11 @@ UserSchema.pre('save', function (next) {
   }
 });
 
+UserSchema.statics.deleteAccountById = function (id) {
+  let User = this;
+  return User.findOneAndDelete({ '_id': id });
+};
+
 UserSchema.statics.findByCredentials = function (username, callback) {
   let User = this;
 
@@ -113,8 +118,11 @@ let hashPassword = (user) => {
 // Compare the password during login
 UserSchema.statics.comparePassword = (userPassword, hash, callback) => {
   bcrypt.compare(userPassword, hash, (err, isMatch) => {
-    if(err) throw err;
-    callback(null, isMatch);
+    if(err) {
+      console.log('1: ', err);
+      return err;
+    }
+    callback(isMatch);
   });
 };
 

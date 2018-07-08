@@ -16,7 +16,7 @@ block content
                         if (user.profileImg)
                             img.rounded.mx-auto.d-block(src='/images/uploads/' + user.profileImg.filename)
                     .profile-userbuttons
-                        button.btn.btn-default.btn-sm(type='button') Change Image
+                        button.btn.btn-default.btn-secondary.btn-sm(type='button') Change Image
                     nav.nav.flex-column.profile-usermenu
                         a.nav-link(class=title === 'Profile Setting' ? 'active' : undefined, href='profile') Profile
                         a.nav-link(class=title === 'Account Setting' ? 'active' : undefined, href='account') Account
@@ -25,26 +25,31 @@ block content
                 .profile-content
                     .container
                         .col-sm-12.col-md-10.mx-auto
+                            .row
+                                .col-12
+                                    != messages()
+                            // Password Change ///////////////////////////////////////////////////////////////////////
+                            //////////////////////////////////////////////////////////////////////////////////////////
                             #change-password
                                 h5.font-weight-bold Change Password
                             hr
-                            form#changePasswordForm.form-horizontal(method='post', action='/user/register', enctype="multipart/form-data", novalidate='novalidate')
+                            form#changePasswordForm.form-horizontal(method='post', action='/users/' + user.username + '/settings/account/change_password', novalidate='novalidate')
                                 .form-group
                                     .row
-                                        label.col-sm-12.col-md-4.control-label(for='old-password') Old Password
+                                        label.col-sm-12.col-md-4.control-label(for='old_password') Old Password
                                         .col-sm-12.col-md-8
-                                            input#old-password.form-control.validate-equalTo-blur(type='old-password', name='old-password', placeholder='Password', aria-required='true', aria-describedby='old-password-error', aria-invalid='false')
+                                            input#old_password.form-control.validate-equalTo-blur(type='password', name='old_password', placeholder='Password', aria-required='true', aria-describedby='old_password-error', aria-invalid='false')
                                             if (errors)
-                                                if (errors.old-password)
-                                                    #old-password-error.error.invalid-feedback= errors.old-password.msg
+                                                if (errors.old_password)
+                                                    #old_password-error.error.invalid-feedback= errors.old_password.msg
                                 .form-group
                                     .row
-                                        label.col-sm-12.col-md-4.control-label(for='new-password') New Password
+                                        label.col-sm-12.col-md-4.control-label(for='new_password') New Password
                                         .col-sm-12.col-md-8
-                                            input#new-password.form-control.validate-equalTo-blur(type='new-password', name='new-password', placeholder='Password', aria-required='true', aria-describedby='new-password-error', aria-invalid='false')
+                                            input#new_password.form-control.validate-equalTo-blur(type='password', name='new_password', placeholder='Password', aria-required='true', aria-describedby='new_password-error', aria-invalid='false')
                                             if (errors)
-                                                if (errors.new-password)
-                                                    #new-password-error.error.invalid-feedback= errors.new-password.msg
+                                                if (errors.new_password)
+                                                    #new_password-error.error.invalid-feedback= errors.new_password.msg
                                 .form-group
                                     .row
                                         label.col-sm-12.col-md-4.control-label(for='password2') Confirm password
@@ -57,14 +62,14 @@ block content
                                     .row
                                         .col-sm-12.col-md-4
                                         .col-sm-12.col-md-4
-                                            button.btn.btn-default(type='submit', value='Change Password') Change Password
-                                        .col-sm-12.col-md-4.text-right
-                                            a(href='/user/forgotPassword') Forgot Password?
+                                            button.btn.btn-default.btn-secondary(type='submit', value='Change Password') Change Password
 
+                            // Username Change ///////////////////////////////////////////////////////////////////////
+                            //////////////////////////////////////////////////////////////////////////////////////////
                             #change-username
                                 h5.font-weight-bold Change Username
                             hr
-                            form#changeUsernameForm.form-horizontal(method='post', action='/user/register', enctype="multipart/form-data", novalidate='novalidate')
+                            form#changeUsernameForm.form-horizontal(method='post', action='/users/' + user.username + '/settings/account/change_username', novalidate='novalidate')
                                 .form-group
                                     .row
                                         label.col-sm-12.col-md-4.control-label(for='username') Username
@@ -77,12 +82,14 @@ block content
                                     .row
                                         .col-sm-12.col-md-4
                                         .col-sm-12.col-md-4
-                                            button.btn.btn-default(type='submit', value='Update Username') Update Username
+                                            button.btn.btn-default.btn-secondary(type='submit', value='Update Username') Update Username
 
+                            // Email Change //////////////////////////////////////////////////////////////////////////
+                            //////////////////////////////////////////////////////////////////////////////////////////
                             #change-email
                                 h5.font-weight-bold Change Email
                             hr
-                            form#changeEmailForm.form-horizontal(method='post', action='/user/register', enctype="multipart/form-data", novalidate='novalidate')
+                            form#changeEmailForm.form-horizontal(method='post', action='/users/' + user.username + '/settings/account/change_email', novalidate='novalidate')
                                 .form-group
                                     .row
                                         label.col-sm-12.col-md-4.control-label(for='email') Email
@@ -95,17 +102,35 @@ block content
                                     .row
                                         .col-sm-12.col-md-4
                                         .col-sm-12.col-md-4
-                                            button.btn.btn-default(type='submit', value='Update Email') Update Email
+                                            button.btn.btn-default.btn-secondary(type='submit', value='Update Email') Update Email
 
+                            // Delete Account ////////////////////////////////////////////////////////////////////////
+                            //////////////////////////////////////////////////////////////////////////////////////////
                             #delete-account
                                 h5.text-danger.font-weight-bold Delete Account
                                 hr
                                 p Once you delete your account, there is no going back.
-                                form#deleteAccountForm.form-horizontal(method='post', action='/user/register', enctype="multipart/form-data", novalidate='novalidate')
-                                    .form-group
-                                        .row
-                                            .col-sm-12.col-md-4
-                                            .col-sm-12.col-md-4
-                                                button.btn.btn-default.btn-danger.font-weight-bold(type='submit', value='Delete Account') Delete Account
+
+                                button.btn.btn-default.btn-secondary.btn-danger.font-weight-bold(type='button', value='Delete Account', data-toggle="modal", data-target="#confirmDelete") Delete Account
+                                // Modal
+                                #confirmDelete.modal.fade(tabindex='-1', role='dialog', aria-labelledby='confirmDeleteAccount', aria-hidden='true')
+                                    .modal-dialog.modal-dialog-centered(role='document')
+                                        .modal-content
+                                            .modal-header
+                                                h5#exampleModalCenterTitle.modal-title.text-danger Delete Account
+                                                button.close(type='button', data-dism
+                                                iss='modal', aria-label='Close')
+                                                    span(aria-hidden='true') ×
+                                            .modal-body
+                                                form#deleteAccountForm.form-horizontal(method='post', action='/users/' + user.username + '/settings/account/delete', novalidate='novalidate')
+                                                    button.btn.btn-danger.font-weight-bold(type='submit') I AM SURE, DELETE ACCOUNT.
+                                            .modal-footer
+                                                button.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
 
 
+
+block scripts
+    scripts(src='/plugins/jquery.form.min.js')
+    script(src='/bower_components/jquery-validation/dist/jquery.validate.min.js')
+    script(src='/bower_components/jquery-validation/dist/additional-methods.min.js')
+    script(src='/js/main.js')

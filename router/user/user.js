@@ -4,11 +4,11 @@ const passport = require('passport');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 
-const mongoose = require('../server/db/mongoose');
-const { User } = require('../models/user.model');
-const { upload } = require('./helper/multerConfigurations');
-const { ifLoggedIn, ifNotLoggedIn } = require('./helper/accessControlAndValidator');
-const passportConfig = require('./helper/passport');
+const mongoose = require('../../server/db/mongoose');
+const { User } = require('../../models/user.model');
+const { upload } = require('../helper/multerConfigurations');
+const { ifLoggedIn, ifNotLoggedIn } = require('../helper/accessControlAndValidator');
+const passportConfig = require('../helper/passport');
 
 // Register Form
 router.get('/register', ifNotLoggedIn, (req, res, next) => {
@@ -181,7 +181,12 @@ router.get('/scripts/emailExists', (req, res) => {
     if (err)
       return new Error('Server Error');
     if (user) {
-      res.write('""');
+      console.log(req.user);
+      if (req.user)
+        if (req.user.email === user.email)
+          res.write('"true"');
+      else
+        res.write('""');
     } else {
       res.write('"true"');
     }
@@ -190,12 +195,16 @@ router.get('/scripts/emailExists', (req, res) => {
 });
 
 router.get('/scripts/usernameExists', (req, res) => {
-  console.log(req.query.username);
   User.findOne({ 'username': req.query.username }).exec((err, user) => {
     if (err)
       return new Error('Server Error');
     if (user) {
-      res.write('""');
+      console.log(req.user);
+      if (req.user)
+        if (req.user.username === user.username)
+          res.write('"true"');
+      else
+        res.write('""');
     } else {
       res.write('"true"');
     }

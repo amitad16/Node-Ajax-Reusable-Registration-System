@@ -173,7 +173,7 @@ $( document ).ready(() => {
 
   /**
    * *****************************************************************
-   * Reset Password Form Validation
+   * Reset Password Form Validation - without logging in
    * *****************************************************************
    */
   $( "#resetPasswordForm" ).validate( {
@@ -196,6 +196,127 @@ $( document ).ready(() => {
       password2: {
         required: "Please confirm your password",
         equalTo: "Please enter the same password as above"
+      }
+    },
+    errorElement: "div",
+    errorPlacement: function ( error, element ) {
+      errorPlacement(error, element)
+    },
+    highlight: function ( element, errorClass, validClass ) {
+      highlight(element, errorClass, validClass)
+    },
+    unhighlight: function ( element, errorClass, validClass ) {
+      unhighlight(element, errorClass, validClass)
+    },
+    submitHandler: function (form) {
+      submitHandler(form)
+    }
+  });
+
+  /**
+   * *****************************************************************
+   * Reset Password Form Validation - with logging in
+   * *****************************************************************
+   */
+  $( "#changePasswordForm" ).validate( {
+    rules: {
+      old_password: {
+        required: true,
+      },
+      new_password: {
+        required: true,
+        minlength: 5,
+        isPassword: true
+      },
+      password2: {
+        required: true,
+        equalTo: "#new_password"
+      }
+    },
+    messages: {
+      old_password: {
+        required: "Please enter your old password"
+      },
+      new_password: {
+        required: "Please enter a new password",
+        minlength: "Your password must be at least 5 characters long"
+      },
+      password2: {
+        required: "Please confirm your new password",
+        equalTo: "Please enter the same password as above"
+      }
+    },
+    errorElement: "div",
+    errorPlacement: function ( error, element ) {
+      errorPlacement(error, element)
+    },
+    highlight: function ( element, errorClass, validClass ) {
+      highlight(element, errorClass, validClass)
+    },
+    unhighlight: function ( element, errorClass, validClass ) {
+      unhighlight(element, errorClass, validClass)
+    },
+    submitHandler: function (form) {
+      submitHandler(form)
+    }
+  });
+
+  /**
+   * *****************************************************************
+   * Reset Password Form Validation
+   * *****************************************************************
+   */
+  $("#changeUsernameForm").validate({
+    rules: {
+      username: {
+        required: true,
+        minlength: 3,
+        maxlength: 20,
+        onlyAlphabets: true,
+        remote: '/user/scripts/usernameExists'
+      }
+    },
+    messages: {
+      username: {
+        required: "Please enter a username",
+        minlength: "Your username must consist of at least 3 characters",
+        maxlength: "Your username must not contain more than 20 characters",
+        remote: $.validator.format("\'{0}\' is already taken. Please try another.")
+      }
+    },
+    errorElement: "div",
+    errorPlacement: function ( error, element ) {
+      errorPlacement(error, element)
+    },
+    highlight: function ( element, errorClass, validClass ) {
+      highlight(element, errorClass, validClass)
+    },
+    unhighlight: function ( element, errorClass, validClass ) {
+      unhighlight(element, errorClass, validClass)
+    },
+    submitHandler: function (form) {
+      submitHandler(form)
+    }
+  });
+
+  /**
+   * *****************************************************************
+   * Reset Email Form Validation
+   * *****************************************************************
+   */
+  $("#changeEmailForm").validate({
+    rules: {
+      email: {
+        required: true,
+        isEmail: true,
+        remote: '/user/scripts/emailExists'
+      }
+    },
+    messages: {
+      email: {
+        required: "Please enter your email",
+        isEmail: "Please enter a valid email address",
+        remote: $.validator.format("\'{0}\' is already associated with an account.")
       }
     },
     errorElement: "div",
