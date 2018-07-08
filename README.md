@@ -17,4 +17,6 @@ Create a file `config.json`
     }
 
 ## Run Program
-Go to the directory path inside your terminal and run `npm start`
+Go to the directory path inside your terminal and run 
+- `npm install`
+- `npm start`
