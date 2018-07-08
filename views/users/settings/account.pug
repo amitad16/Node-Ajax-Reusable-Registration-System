@@ -1,0 +1,111 @@
+extends ../../layout
+
+block stylesheets
+    link(rel='stylesheet', href='/css/main.css')
+    link(rel='stylesheet', href='/css/user-settings.css')
+block content
+    //
+      User Profile Sidebar by @keenthemes
+      A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+      Licensed under MIT
+    .container
+        .row.profile
+            .col-md-3
+                .profile-sidebar
+                    .profile-userpic
+                        if (user.profileImg)
+                            img.rounded.mx-auto.d-block(src='/images/uploads/' + user.profileImg.filename)
+                    .profile-userbuttons
+                        button.btn.btn-default.btn-sm(type='button') Change Image
+                    nav.nav.flex-column.profile-usermenu
+                        a.nav-link(class=title === 'Profile Setting' ? 'active' : undefined, href='profile') Profile
+                        a.nav-link(class=title === 'Account Setting' ? 'active' : undefined, href='account') Account
+                        button.btn.btn-success(type='button') Save Changes
+            .col-md-9
+                .profile-content
+                    .container
+                        .col-sm-12.col-md-10.mx-auto
+                            #change-password
+                                h5.font-weight-bold Change Password
+                            hr
+                            form#changePasswordForm.form-horizontal(method='post', action='/user/register', enctype="multipart/form-data", novalidate='novalidate')
+                                .form-group
+                                    .row
+                                        label.col-sm-12.col-md-4.control-label(for='old-password') Old Password
+                                        .col-sm-12.col-md-8
+                                            input#old-password.form-control.validate-equalTo-blur(type='old-password', name='old-password', placeholder='Password', aria-required='true', aria-describedby='old-password-error', aria-invalid='false')
+                                            if (errors)
+                                                if (errors.old-password)
+                                                    #old-password-error.error.invalid-feedback= errors.old-password.msg
+                                .form-group
+                                    .row
+                                        label.col-sm-12.col-md-4.control-label(for='new-password') New Password
+                                        .col-sm-12.col-md-8
+                                            input#new-password.form-control.validate-equalTo-blur(type='new-password', name='new-password', placeholder='Password', aria-required='true', aria-describedby='new-password-error', aria-invalid='false')
+                                            if (errors)
+                                                if (errors.new-password)
+                                                    #new-password-error.error.invalid-feedback= errors.new-password.msg
+                                .form-group
+                                    .row
+                                        label.col-sm-12.col-md-4.control-label(for='password2') Confirm password
+                                        .col-sm-12.col-md-8
+                                            input#password2.form-control(type='password', name='password2', placeholder='Confirm password', aria-required='true', aria-describedby='password2-error', aria-invalid='false')
+                                            if (errors)
+                                                if (errors.password2)
+                                                    #password2-error.error.invalid-feedback= errors.password2.msg
+                                .form-group
+                                    .row
+                                        .col-sm-12.col-md-4
+                                        .col-sm-12.col-md-4
+                                            button.btn.btn-default(type='submit', value='Change Password') Change Password
+                                        .col-sm-12.col-md-4.text-right
+                                            a(href='/user/forgotPassword') Forgot Password?
+
+                            #change-username
+                                h5.font-weight-bold Change Username
+                            hr
+                            form#changeUsernameForm.form-horizontal(method='post', action='/user/register', enctype="multipart/form-data", novalidate='novalidate')
+                                .form-group
+                                    .row
+                                        label.col-sm-12.col-md-4.control-label(for='username') Username
+                                        .col-sm-12.col-md-8
+                                            input#username.form-control(type='text', name='username', placeholder='Username', aria-required='true', aria-describedby='username-error', aria-invalid='false')
+                                            if (errors)
+                                                if (errors.username)
+                                                    #username-error.error.invalid-feedback= errors.username.msg
+                                .form-group
+                                    .row
+                                        .col-sm-12.col-md-4
+                                        .col-sm-12.col-md-4
+                                            button.btn.btn-default(type='submit', value='Update Username') Update Username
+
+                            #change-email
+                                h5.font-weight-bold Change Email
+                            hr
+                            form#changeEmailForm.form-horizontal(method='post', action='/user/register', enctype="multipart/form-data", novalidate='novalidate')
+                                .form-group
+                                    .row
+                                        label.col-sm-12.col-md-4.control-label(for='email') Email
+                                        .col-sm-12.col-md-8
+                                            input#email.form-control(type='text', name='email', placeholder='Email', value=user.email, aria-required='true', aria-describedby='email-error', aria-invalid='false')
+                                            if (errors)
+                                                if (errors.email)
+                                                    #email-error.error.invalid-feedback= errors.email.msg
+                                .form-group
+                                    .row
+                                        .col-sm-12.col-md-4
+                                        .col-sm-12.col-md-4
+                                            button.btn.btn-default(type='submit', value='Update Email') Update Email
+
+                            #delete-account
+                                h5.text-danger.font-weight-bold Delete Account
+                                hr
+                                p Once you delete your account, there is no going back.
+                                form#deleteAccountForm.form-horizontal(method='post', action='/user/register', enctype="multipart/form-data", novalidate='novalidate')
+                                    .form-group
+                                        .row
+                                            .col-sm-12.col-md-4
+                                            .col-sm-12.col-md-4
+                                                button.btn.btn-default.btn-danger.font-weight-bold(type='submit', value='Delete Account') Delete Account
+
+

@@ -18,10 +18,8 @@ block content
                     .profile-userbuttons
                         button.btn.btn-default.btn-sm(type='button') Change Image
                     nav.nav.flex-column.profile-usermenu
-                        a.nav-link.active(href='profile') Profile
-                        a.nav-link(href='password') Password
-                        a.nav-link(href='#') Link
-                        a.nav-link(href='#') Link
+                        a.nav-link(class=title==='Profile Setting' ? 'active' : undefined, href='profile') Profile
+                        a.nav-link(class=title==='Account Setting' ? 'active' : undefined, href='account') Account
                         button.btn.btn-success(type='button') Save Changes
             .col-md-9
                 .profile-content
@@ -36,21 +34,3 @@ block content
                                             if (errors)
                                                 if (errors.name)
                                                     #name-error.error.invalid-feedback= errors.name.msg
-                                .form-group
-                                    .row
-                                        label.col-sm-12.col-md-4.control-label(for='username') Username
-                                        .col-sm-12.col-md-8
-                                            input#username.form-control(type='text', name='username', value=user.username, placeholder='Username', aria-required='true', aria-describedby='username-error', aria-invalid='false')
-                                            if (errors)
-                                                if (errors.username)
-                                                    #username-error.error.invalid-feedback= errors.username.msg
-                                .form-group
-                                    .row
-                                        label.col-sm-12.col-md-4.control-label(for='email') Email
-                                        .col-sm-12.col-md-8
-                                            input#email.form-control(type='text', name='email', placeholder='Email', value=user.email, aria-required='true', aria-describedby='email-error', aria-invalid='false')
-                                            if (errors)
-                                                if (errors.email)
-                                                    #email-error.error.invalid-feedback= errors.email.msg
-
-

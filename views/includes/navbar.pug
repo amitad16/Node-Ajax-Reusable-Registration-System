@@ -9,19 +9,17 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
     #toggle.collapse.navbar-collapse
         ul.navbar-nav
             if (user)
-                li.nav-item.active
+                //p= title
+                //p= title==='Dashboard' && 'Home' ? 'active' : undefined
+                li.nav-item(class=title==='Dashboard' && 'Home' ? 'active' : undefined)
                     a.nav-link(href='/users/' + user.username) Home
-                li.nav-item
-                    a.nav-link(href='#') Link1
-                li.nav-item
-                    a.nav-link(href='#') Link2
             else
-                li.nav-item.active
+                li.nav-item(class=title==='Home' ? 'active' : undefined)
                     a.nav-link(href='/') Home
-                li.nav-item
-                    a.nav-link(href='#') Link1
-                li.nav-item
-                    a.nav-link(href='#') Link2
+            li.nav-item(class=title === 'link1' ? 'active' : undefined)
+                a.nav-link(href='#') Link1
+            li.nav-item(class=title === 'link2' ? 'active' : undefined)
+                a.nav-link(href='#') Link2
         ul.navbar-nav.ml-auto
             if (user)
                 li.nav-item.dropdown
@@ -33,7 +31,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
                         .dropdown-divider
                         a.dropdown-item(href='/user/logout') Logout
             else
-                li.nav-item
+                li.nav-item(class=title==='Login' ? 'active' : undefined)
                     a.nav-link(href='/user/login') Login
-                li.nav-item
+                li.nav-item(class=title==='Register' ? 'active' : undefined)
                     a.nav-link(href='/user/register') Register

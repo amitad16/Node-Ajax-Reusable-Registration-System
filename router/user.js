@@ -27,12 +27,15 @@ router.get('/logout', ifLoggedIn, (req, res, next) => {
 });
 
 router.get('/forgotPassword', ifNotLoggedIn, (req, res, next) => {
-  res.render('user/forgotPassword');
+  res.render('user/forgotPassword', { title: 'Forgot Password' });
 });
 
 router.get('/resetPassword/:resetToken', ifNotLoggedIn, (req, res, next) => {
   const resetToken = req.params.resetToken;
-  res.render('user/resetPassword', { resetToken });
+  res.render('user/resetPassword', {
+    title: 'Reset Password',
+    resetToken
+  });
 });
 
 // Process Register
@@ -57,7 +60,10 @@ router.post('/register', ifNotLoggedIn, upload, (req, res, next) => {
         if (err.errors.password) {
           errors.password = { msg: err.errors.password.message };
         }
-        res.render('user/register', { errors });
+        res.render('user/register', {
+          title: 'Register',
+          errors
+        });
       }
     } else {
       req.flash('success', 'You are registered and can login');
@@ -117,20 +123,26 @@ router.post('/forgotPassword', ifNotLoggedIn, (req, res) => {
           transporter.sendMail(message, (err, info) => {
             if (err) {
               req.flash('error', 'Email sent error');
-              res.render('user/forgotPassword');
+              res.render('user/forgotPassword', { title: 'Forgot Password' });
             }
             req.flash('success', 'Check your inbox for the next steps. If you don\'t receive an email, and it\'s not in your spam folder this could mean you signed up with a different address.');
-            res.render('user/forgotPassword', { 'success': true });
+            res.render('user/forgotPassword', {
+              title: 'Forgot Password',
+              'success': true
+            });
           });
         })
     } else {
       req.flash('success', 'Check your inbox for the next steps. If you don\'t receive an email, and it\'s not in your spam folder this could mean you signed up with a different address.');
-      res.render('user/forgotPassword', { 'success': true });
+      res.render('user/forgotPassword', {
+        title: 'Forgot Password',
+        'success': true
+      });
     }
     })
     .catch(err => {
       req.flash('error', `Some error occured: ${err}`);
-      res.render('user/forgotPassword');
+      res.render('user/forgotPassword', { title: 'Forgot Password' });
     });
 });
 
