@@ -29,7 +29,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
                         | #{user.email}
                     .dropdown-menu(aria-labelledby='manageDropdown')
                         a.dropdown-item(href='/users/' + user.username + '/profile') Profile
-                        a.dropdown-item(href='/users/' + user.username + '/settings') Settings
+                        a.dropdown-item(href='/users/' + user.username + '/settings/profile') Settings
                         .dropdown-divider
                         a.dropdown-item(href='/user/logout') Logout
             else

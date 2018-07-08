@@ -14,4 +14,8 @@ router.get('/:username/profile', ifLoggedIn, (req, res, next) => {
   res.render('users/profile', { user: req.user });
 });
 
+router.get('/:username/settings/profile', ifLoggedIn, (req, res, next) => {
+  res.render('users/settings/profile', { user: req.user });
+});
+
 module.exports = router;
