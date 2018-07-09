@@ -28,20 +28,21 @@ router.post('/change_password', ifLoggedIn, (req, res, next) => {
       if (isMatch) {
         req.flash('error', 'You cannot provide same password again');
         return res.redirect(`/users/${req.params.username}/settings/account`);
-      }
-    });
-    User.comparePassword(oldPassword, storedHashedPassword, (isMatch) => {
-      if (isMatch) {
-        user.password = req.body.new_password;
-        user.save()
-          .then(() => {
-            req.flash('success', 'Password changed successfully');
-            return res.redirect(`/users/${req.params.username}/settings/account`);
-          })
-          .catch(err => res.status(400).send(err));
       } else {
-        req.flash('error', 'Invalid Old Password');
-        return res.redirect(`/users/${req.params.username}/settings/account`);
+        User.comparePassword(oldPassword, storedHashedPassword, (isMatch) => {
+          if (isMatch) {
+            user.password = req.body.new_password;
+            user.save()
+              .then(() => {
+                req.flash('success', 'Password changed successfully');
+                return res.redirect(`/users/${req.params.username}/settings/account`);
+              })
+              .catch(err => res.status(400).send(err));
+          } else {
+            req.flash('error', 'Invalid Old Password');
+            return res.redirect(`/users/${req.params.username}/settings/account`);
+          }
+        });
       }
     });
   });
