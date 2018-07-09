@@ -69,9 +69,18 @@ const UserSchema = new Schema({
     type: Schema.Types.Mixed,
     required: false
   },
-  resetToken: {
-    type: String,
-    required: false
+  token: {
+    reset_password: {
+      type: String,
+      required: false
+    },
+    email_activate: {
+      type: String,
+      required: false
+    }
+  },
+  active: {
+    type: Boolean
   }
 });
 

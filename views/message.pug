@@ -1,0 +1,11 @@
+extends ./layout
+
+block stylesheets
+    link(rel='stylesheet', href='/css/main.css')
+
+block content
+    .container
+        .col-sm-12.col-md-8.col-lg-6.mx-auto
+            .row
+                .col-12
+                    != messages()

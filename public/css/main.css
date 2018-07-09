@@ -4,13 +4,15 @@
 }
 
 #messages > ul.error,
-#messages > ul.success {
+#messages > ul.success,
+#messages > ul.warning {
     list-style: none;
     padding-left: 0;
 }
 
 #messages > ul.error > li,
-#messages > ul.success > li {
+#messages > ul.success > li,
+#messages > ul.warning > li {
     color: #FFF;
     padding: 10px;
     margin-bottom: 20px;
@@ -20,6 +22,10 @@
 
 #messages > ul.error > li {
     background-color: #d64242;
+}
+
+#messages > ul.warning > li {
+    background-color: #e8aa16;
 }
 
 #messages > ul.success > li {

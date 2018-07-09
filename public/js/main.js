@@ -7,7 +7,7 @@ $( document ).ready(() => {
   const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const NAME_REGEX = /^([a-zA-Z ]){3,50}$/;
   const PASSWORD_REGEX = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[\W]).{6,18}$/;
-  const USERNAME_REGEX = /^[a-z]+$/i;
+  const USERNAME_REGEX = /^[a-z0-9]+$/i;
 
   // NAME VALIDATOR
   $.validator.addMethod("isName", function (value, element) {
@@ -15,9 +15,9 @@ $( document ).ready(() => {
   }, 'Name should only contain alphabets and white spaces.');
 
   // USERNAME VALIDATOR
-  $.validator.addMethod( "onlyAlphabets", function( value, element ) {
+  $.validator.addMethod( "onlyAlphaNumeric", function( value, element ) {
     return this.optional( element ) || USERNAME_REGEX.test( value );
-  }, "Username should contain only letters." );
+  }, "Username should contain only letters and numbers" );
 
   // EMAIL VALIDATOR
   $.validator.addMethod("isEmail", function (value, element) {
@@ -41,7 +41,7 @@ $( document ).ready(() => {
         required: true,
         minlength: 3,
         maxlength: 20,
-        onlyAlphabets: true,
+        onlyAlphaNumeric: true,
         remote: '/user/scripts/usernameExists'
       },
       email: {
@@ -272,7 +272,7 @@ $( document ).ready(() => {
         required: true,
         minlength: 3,
         maxlength: 20,
-        onlyAlphabets: true,
+        onlyAlphaNumeric: true,
         remote: '/user/scripts/usernameExists'
       }
     },
@@ -361,5 +361,9 @@ $( document ).ready(() => {
     return false;
   }
 
+  $('#btn-change-email').on('click', function () {
+    let newEmail = $('#email').val();
 
+    $('#confirmChangeEmailForm').prepend('<input id="email" type="hidden" name="email" value='+ newEmail +' placeholder="Email" aria-required="true" aria-describedby="email-error" aria-invalid="false" class="form-control"/> ');
+  });
 });

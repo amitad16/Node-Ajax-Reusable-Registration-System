@@ -12,25 +12,27 @@ block content
         .row.profile
             .col-md-3
                 .profile-sidebar
-                    .profile-userpic
-                        if (user.profileImg)
-                            img.rounded.mx-auto.d-block(src='/images/uploads/' + user.profileImg.filename)
-                    .profile-userbuttons
-                        button.btn.btn-default.btn-sm(type='button') Change Image
                     nav.nav.flex-column.profile-usermenu
                         a.nav-link(class=title==='Profile Setting' ? 'active' : undefined, href='profile') Profile
                         a.nav-link(class=title==='Account Setting' ? 'active' : undefined, href='account') Account
-
             .col-md-9
                 .profile-content
-                    .container
-                        .col-sm-12.col-md-10.mx-auto
-                            form#registerForm.form-horizontal(method='post', action='/user/register', enctype="multipart/form-data", novalidate='novalidate')
-                                .form-group
-                                    .row
-                                        label.col-sm-12.col-md-4.control-label(for='name') Name
-                                        .col-sm-12.col-md-8
-                                            input#name.form-control(type='text', name='name', value=user.name placeholder='Name', aria-required='true', aria-describedby='name-error', aria-invalid='false')
-                                            if (errors)
-                                                if (errors.name)
-                                                    #name-error.error.invalid-feedback= errors.name.msg
+                    .row
+                        .col-md-9
+                            .container
+                                .col-sm-12.col-md-10.mx-auto
+                                    form#registerForm.form-horizontal(method='post', action='/user/register', enctype="multipart/form-data", novalidate='novalidate')
+                                        .form-group
+                                            .row
+                                                label.col-sm-12.col-md-4.control-label(for='name') Name
+                                                .col-sm-12.col-md-8
+                                                    input#name.form-control(type='text', name='name', value=user.name placeholder='Name', aria-required='true', aria-describedby='name-error', aria-invalid='false')
+                                                    if (errors)
+                                                        if (errors.name)
+                                                            #name-error.error.invalid-feedback= errors.name.msg
+                        .col-md-3
+                            .profile-userpic
+                                if (user.profileImg)
+                                    img.rounded.mx-auto.d-block.img-fluid(src='/images/uploads/' + user.profileImg.filename)
+                            .profile-userbuttons
+                                button.btn.btn-default.btn-secondary.btn-sm(type='button') Change Image

@@ -12,11 +12,11 @@ block content
         .row.profile
             .col-md-3
                 .profile-sidebar
-                    .profile-userpic
-                        if (user.profileImg)
-                            img.rounded.mx-auto.d-block(src='/images/uploads/' + user.profileImg.filename)
-                    .profile-userbuttons
-                        button.btn.btn-default.btn-secondary.btn-sm(type='button') Change Image
+                    //.profile-userpic
+                    //    if (user.profileImg)
+                    //        img.rounded.mx-auto.d-block(src='/images/uploads/' + user.profileImg.filename)
+                    //.profile-userbuttons
+                    //    button.btn.btn-default.btn-secondary.btn-sm(type='button') Change Image
                     nav.nav.flex-column.profile-usermenu
                         a.nav-link(class=title === 'Profile Setting' ? 'active' : undefined, href='profile') Profile
                         a.nav-link(class=title === 'Account Setting' ? 'active' : undefined, href='account') Account
@@ -89,7 +89,7 @@ block content
                             #change-email
                                 h5.font-weight-bold Change Email
                             hr
-                            form#changeEmailForm.form-horizontal(method='post', action='/users/' + user.username + '/settings/account/change_email', novalidate='novalidate')
+                            form#changeEmailForm.form-horizontal(novalidate='novalidate')
                                 .form-group
                                     .row
                                         label.col-sm-12.col-md-4.control-label(for='email') Email
@@ -102,7 +102,34 @@ block content
                                     .row
                                         .col-sm-12.col-md-4
                                         .col-sm-12.col-md-4
-                                            button.btn.btn-default.btn-secondary(type='submit', value='Update Email') Update Email
+                                            button#btn-change-email.btn.btn-default.btn-secondary(type='button', value='Update Email', data-toggle="modal", data-target="#confirmChangeEmail") Update Email
+
+                            // Modal
+                            #confirmChangeEmail.modal.fade(tabindex='-1', role='dialog', aria-labelledby='confirmChangeEmail', aria-hidden='true')
+                                .modal-dialog.modal-dialog-centered(role='document')
+                                    .modal-content
+                                        .modal-header
+                                            h5#confirmChangeEmailCenterTitle.modal-title Change Email
+                                            button.close(type='button', data-dismiss='modal')
+                                                span(aria-hidden='true') ×
+                                        .modal-body
+                                            form#confirmChangeEmailForm.form-horizontal(method='post', action='/users/' + user.username + '/settings/account/change_email', novalidate='novalidate')
+                                                .form-group
+                                                    .row
+                                                        label.col-sm-12.col-md-4.control-label(for='password') Password
+                                                        .col-sm-12.col-md-8
+                                                            input#password.form-control(type='password', name='password', placeholder='Password', value=user.password, aria-required='true', aria-describedby='password-error', aria-invalid='false')
+                                                            if (errors)
+                                                                if (errors.email)
+                                                                    #email-error.error.invalid-feedback= errors.password.msg
+                                                .form-group
+                                                    .row
+                                                        .col-sm-12.col-md-4
+                                                        .col-sm-12.col-md-4
+                                                            button.btn.btn-default.btn-success(type='submit', value='Confirm') Confirm
+                                        .modal-footer
+                                            button.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+
 
                             // Delete Account ////////////////////////////////////////////////////////////////////////
                             //////////////////////////////////////////////////////////////////////////////////////////

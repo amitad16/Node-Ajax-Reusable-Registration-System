@@ -64,9 +64,6 @@ app.use((req, res, next) => {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
-/**
- * End setting middleware
- */
 
 app.get('*', function(req,res,next) {
   //local variable to hold user info
@@ -84,14 +81,14 @@ app.use('/users/:username/settings', usersSettingsRouter);
 app.use('/users/:username/settings/account', usersSettingsAccountRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // Error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
