@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 
 const mongoose = require('../../server/db/mongoose');
