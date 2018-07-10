@@ -3,11 +3,15 @@ html
     head
         meta(name='viewport', content='width=device-width, initial-scale=1')
         title= title
-        link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
+        link(rel='stylesheet', href='/scripts/bootstrap/dist/css/bootstrap.css')
         block stylesheets
     body
         include ./includes/navbar.pug
         block content
-        script(src='/bower_components/jquery/dist/jquery.js')
-        script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+        script(src='/scripts/jquery/dist/jquery.js')
+        script(src='/scripts/bootstrap/dist/js/bootstrap.js')
+        scripts(src='/plugins/jquery.form.min.js')
+        script(src='/scripts/jquery-validation/dist/jquery.validate.min.js')
+        script(src='/scripts/jquery-validation/dist/additional-methods.js')
+        script(src='/js/main.js')
         block scripts
