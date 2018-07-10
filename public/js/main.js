@@ -334,6 +334,42 @@ $( document ).ready(() => {
     }
   });
 
+  /**
+   * *****************************************************************
+   * Reset Name Form Validation
+   * *****************************************************************
+   */
+  $( "#changeNameForm" ).validate( {
+    rules: {
+      name: {
+        required: true,
+        minlength: 3,
+        maxlength: 50,
+        isName: true
+      }
+    },
+    messages: {
+      name: {
+        required: "Please enter your name",
+        minlength: "Your name must consist of at least 3 characters",
+        maxlength: "Your name must not contain more than 50 characters",
+      }
+    },
+    errorElement: "div",
+    errorPlacement: function ( error, element ) {
+      errorPlacement(error, element)
+    },
+    highlight: function ( element, errorClass, validClass ) {
+      highlight(element, errorClass, validClass)
+    },
+    unhighlight: function ( element, errorClass, validClass ) {
+      unhighlight(element, errorClass, validClass)
+    },
+    submitHandler: function (form) {
+      submitHandler(form)
+    }
+  });
+
   function errorPlacement(error, element ) {
     error.addClass("invalid-feedback");
     if (element.prop("type") === "checkbox") {

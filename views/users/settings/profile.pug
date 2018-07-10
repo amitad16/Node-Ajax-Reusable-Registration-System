@@ -24,15 +24,26 @@ block content
                                     .row
                                         #messages.col-12
                                             != messages()
-                                    form#profileForm.form-horizontal(method='post', action='', enctype="multipart/form-data", novalidate='novalidate')
+
+                                    // Username Change ///////////////////////////////////////////////////////////////////////
+                                    //////////////////////////////////////////////////////////////////////////////////////////
+                                    #change-username
+                                        h5.font-weight-bold Change Name
+                                    hr
+                                    form#changeNameForm.form-horizontal(method='post', action='/users/' + user.username + '/settings/profile/change_name', novalidate='novalidate')
                                         .form-group
                                             .row
                                                 label.col-sm-12.col-md-4.control-label(for='name') Name
                                                 .col-sm-12.col-md-8
-                                                    input#name.form-control(type='text', name='name', value=user.name placeholder='Name', aria-required='true', aria-describedby='name-error', aria-invalid='false')
+                                                    input#name.form-control(type='text', name='name', value=user.name, placeholder='Name', aria-required='true', aria-describedby='name-error', aria-invalid='false')
                                                     if (errors)
                                                         if (errors.name)
                                                             #name-error.error.invalid-feedback= errors.name.msg
+                                        .form-group
+                                            .row
+                                                .col-sm-12.col-md-4
+                                                .col-sm-12.col-md-4
+                                                    button.btn.btn-default.btn-secondary(type='submit', value='Update Name') Update Name
                         .col-md-3
                             form#profileImgForm.form-horizontal(method='post', action='/users/' + user.username + '/settings/profile/profile_img', enctype="multipart/form-data", novalidate='novalidate')
                                 .profile-userpic
@@ -44,7 +55,6 @@ block content
 
 block scripts
     script.
-        // $('#upload-img').hide();
         $('#chooseImgBtn').on('click', function () {
           console.log('aa');
           $("#profileImg").click();

@@ -6,6 +6,11 @@ block stylesheets
 block content
     .container
         != messages()
+        .alert.alert-info(role='alert')
+            | Click on the '
+            b top right corner
+            |  ' where your email is written and select any of the options.
+
         h1= user.name
         p= user.username
         p= user.email

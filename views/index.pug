@@ -1,7 +1,23 @@
 extends layout
 
+block stylesheets
+    link(rel='stylesheet', href='/css/main.css')
+
 block content
     .container
         .row
-            .col-6
+            .col-12
                 !=messages()
+        .jumbotron
+            h1.display-4 Full Authentication System
+            h3.text-right Created by -
+                em
+                    b Amit Dimri
+            hr
+            p.lead
+                | A reusable login and registration system using NodeJs + Express + MongoDB. All the features which are expected from a registration system are implemented. With both front-end and back-end validations.
+            hr.my-4
+            p.font-weight-bold
+                a(href='https://github.com/amitad16/Node-Ajax-Reusable-Registration-System.git') Git repository
+            a.btn.btn-primary.btn-lg(href='/user/login', role='button') See what it can do
+

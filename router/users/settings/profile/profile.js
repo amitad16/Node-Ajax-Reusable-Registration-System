@@ -33,4 +33,18 @@ router.post('/profile_img', ifLoggedIn, (req, res) => {
   });
 });
 
+router.post('/change_name', ifLoggedIn, (req, res) => {
+  let newName = req.body.name;
+  User.findByIdAndUpdate(req.user.id, { '$set': { 'name': newName } })
+    .then(() => {
+      req.flash('success', 'Successfully updated name');
+      return res.redirect(`/users/${req.user.username}/settings/profile`);
+    })
+    .catch(err => {
+      req.flash('error', 'Name update failed: ' + err);
+      return res.redirect(`/users/${req.user.username}/settings/profile`);
+    });
+});
+
+
 module.exports = router;
