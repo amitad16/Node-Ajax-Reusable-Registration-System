@@ -40,42 +40,49 @@ router.get('/resetPassword/:resetPasswordToken', ifNotLoggedIn, (req, res, next)
 });
 
 // Process Register
-router.post('/register', ifNotLoggedIn, upload, (req, res, next) => {
-  const userInfo = req.body;
-  delete userInfo.password2;
-  userInfo.profileImg = req.file;
-  userInfo.active = false;
-  const user = new User(userInfo);
-
-  user.save((err) => {
+router.post('/register', ifNotLoggedIn, (req, res, next) => {
+  upload(req, res, (err) => {
     if (err) {
-      if (err.errors !== null) {
-        if (err.errors.name) {
-          errors.name = { msg: err.errors.name.message };
-        }
-        if (err.errors.username) {
-          errors.username = { msg: err.errors.username.message };
-        }
-        if (err.errors.email) {
-          errors.email = { msg: err.errors.email.message };
-        }
-        if (err.errors.password) {
-          errors.password = { msg: err.errors.password.message };
-        }
-        return res.render('user/register', {
-          title: 'Register',
-          errors
-        });
-      }
+      req.flash('error', err);
+      return res.redirect(`/user/register`);
     } else {
-      const emailActivateToken = jwt.sign({email: req.body.email.toString(), access: 'email_activate'}, process.env.JWT_SECRET).toString();
-      User.findOneAndUpdate(
-        { 'email': req.body.email },
-        { '$set': { 'token.email_activate': emailActivateToken } },
-        { 'new': true, 'projection': { 'token.email_activate': 1 } })
-        .then((user) => {
-          sendEmailVerificationOnRegister(req, res, user);
-        });
+      const userInfo = req.body;
+      delete userInfo.password2;
+      userInfo.profileImg = req.file;
+      userInfo.active = false;
+      const user = new User(userInfo);
+
+      user.save((err) => {
+        if (err) {
+          if (err.errors !== null) {
+            if (err.errors.name) {
+              errors.name = { msg: err.errors.name.message };
+            }
+            if (err.errors.username) {
+              errors.username = { msg: err.errors.username.message };
+            }
+            if (err.errors.email) {
+              errors.email = { msg: err.errors.email.message };
+            }
+            if (err.errors.password) {
+              errors.password = { msg: err.errors.password.message };
+            }
+            return res.render('user/register', {
+              title: 'Register',
+              errors
+            });
+          }
+        } else {
+          const emailActivateToken = jwt.sign({email: req.body.email.toString(), access: 'email_activate'}, process.env.JWT_SECRET).toString();
+          User.findOneAndUpdate(
+            { 'email': req.body.email },
+            { '$set': { 'token.email_activate': emailActivateToken } },
+            { 'new': true, 'projection': { 'token.email_activate': 1 } })
+            .then((user) => {
+              sendEmailVerificationOnRegister(req, res, user);
+            });
+        }
+      });
     }
   });
 });
@@ -120,7 +127,6 @@ router.post('/forgotPassword', ifNotLoggedIn, (req, res) => {
         { '$set': { 'token.reset_password': resetPasswordToken } },
         { 'new': true, 'projection': { 'token.reset_password': 1 } })
         .then((user) => {
-          console.log(req.user);
           sendResetPasswordEmail(req, res, user);
         });
     } else {
@@ -172,7 +178,6 @@ router.get('/scripts/emailExists', (req, res) => {
     if (err)
       return next(new Error('Server Error'));
     if (user) {
-      console.log(req.user);
       if (req.user) {
         if (req.user.email === user.email)
           res.write('"true"');
@@ -193,7 +198,6 @@ router.get('/scripts/usernameExists', (req, res) => {
     if (err)
       return next(new Error('Server Error'));
     if (user) {
-      console.log(req.user);
       if (req.user) {
         if (req.user.username === user.username)
           res.write('"true"');

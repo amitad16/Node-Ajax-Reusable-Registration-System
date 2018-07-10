@@ -23,6 +23,7 @@ const userRouter = require('./router/user/user');
 const usersRouter = require('./router/users/users');
 const usersSettingsRouter = require('./router/users/settings/settings');
 const usersSettingsAccountRouter = require('./router/users/settings/account/account');
+const usersSettingsProfileRouter = require('./router/users/settings/profile/profile');
 
 /**
  * Express App initialized
@@ -79,6 +80,7 @@ app.use('/user', userRouter);
 app.use('/users', usersRouter);
 app.use('/users/:username/settings', usersSettingsRouter);
 app.use('/users/:username/settings/account', usersSettingsAccountRouter);
+app.use('/users/:username/settings/profile', usersSettingsProfileRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

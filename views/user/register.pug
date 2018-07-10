@@ -6,6 +6,9 @@ block stylesheets
 block content
     .container
         .col-sm-12.col-md-8.col-lg-6.mx-auto
+            .row
+                .col-12
+                    != messages()
             form#registerForm.form-horizontal(method='post', action='/user/register', enctype="multipart/form-data", novalidate='novalidate')
                 .form-group
                     .row
@@ -51,7 +54,7 @@ block content
                     .row
                         //label.col-sm-4.control-label(for='profileImg') Profile Image:
                         .col-12
-                            input#profileImg.form-control(type='file', name='profileImg', placeholder='Profile Image', aria-describedby='profileImg-error', aria-invalid='false')
+                            input#profileImg.form-control(type='file', name='profileImg', placeholder='Profile Image', aria-describedby='profileImg-error', aria-invalid='false', , accept="image/png,image/jpg,image/jpeg")
                             if (errors)
                                 if (errors.profileImg)
                                     #profileImg-error.error.invalid-feedback= errors.profileImg.msg

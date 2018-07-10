@@ -21,7 +21,10 @@ block content
                         .col-md-9
                             .container
                                 .col-sm-12.col-md-10.mx-auto
-                                    form#registerForm.form-horizontal(method='post', action='/user/register', enctype="multipart/form-data", novalidate='novalidate')
+                                    .row
+                                        #messages.col-12
+                                            != messages()
+                                    form#profileForm.form-horizontal(method='post', action='', enctype="multipart/form-data", novalidate='novalidate')
                                         .form-group
                                             .row
                                                 label.col-sm-12.col-md-4.control-label(for='name') Name
@@ -31,8 +34,52 @@ block content
                                                         if (errors.name)
                                                             #name-error.error.invalid-feedback= errors.name.msg
                         .col-md-3
-                            .profile-userpic
-                                if (user.profileImg)
-                                    img.rounded.mx-auto.d-block.img-fluid(src='/images/uploads/' + user.profileImg.filename)
-                            .profile-userbuttons
-                                button.btn.btn-default.btn-secondary.btn-sm(type='button') Change Image
+                            form#profileImgForm.form-horizontal(method='post', action='/users/' + user.username + '/settings/profile/profile_img', enctype="multipart/form-data", novalidate='novalidate')
+                                .profile-userpic
+                                    if (user.profileImg)
+                                        img#profileImgDisplay.rounded.mx-auto.d-block.img-fluid(src='/images/uploads/' + user.profileImg.filename)
+                                    input(type="file", id="profileImg", name="profileImg", style='display: none;', accept="image/png,image/jpg,image/jpeg")
+                                .profile-userbuttons
+                                    button#chooseImgBtn.btn.btn-default.btn-secondary.btn-sm(type="button") Choose Image
+
+block scripts
+    scripts(src='/plugins/jquery.form.min.js')
+    script.
+        // $('#upload-img').hide();
+        $('#chooseImgBtn').on('click', function () {
+          console.log('aa');
+          $("#profileImg").click();
+        });
+
+        $('#profileImg').on('change', function () {
+            readURL(this);
+            $('#chooseImgBtn').remove();
+            $('.profile-userbuttons')
+              .append('<button id="upload-img" type="submit" class="btn btn-default btn-success btn-sm">Upload</button>')
+              .on('click', 'button#upload-img', function () {
+              $("#profileImgForm").click(function (event) {
+                if ($("#profileImg").val() !== null) {
+                  $('#profileImgForm').ajaxSubmit({
+                    contentType: 'application/json',
+                    success: function (res) {
+                      console.log('Successfully Registered: ', res);
+                    }
+                  });
+                  return false;
+                }
+
+                $("#messages").text("Not valid!").show().fadeOut(1000);
+                event.preventDefault();
+              });
+            });
+        });
+        function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $('#profileImgDisplay')
+              .attr('src', e.target.result);
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+        }

@@ -24,7 +24,7 @@ const upload = multer({
 // Check File Type
 let checkFileType = (file, callback) => {
   // Allowed ext
-  const filetypes = /jpeg|jpg|png|gif/;
+  const filetypes = /jpeg|jpg|png/;
   // Check ext
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   // Check mime
@@ -33,10 +33,8 @@ let checkFileType = (file, callback) => {
   if (mimetype && extname) {
     return callback(null,true);
   } else {
-    console.log('Images only');
-    const errors = {};
-    errors.profileImg = { msg: 'Image formats allowed are jpeg, jpg, png, gif' };
-    callback(errors);
+    let err = 'Image formats allowed are jpeg, jpg, png';
+    callback(err);
   }
 };
 
