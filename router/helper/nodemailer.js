@@ -13,11 +13,11 @@ exports.sendEmailVerificationOnRegister = (req, res, user) => {
     from: 'fullauth@gmail.com',
     to: req.body.email,
     subject: 'FULL AUTH - EMAIL ACTIVATION',
-    text: `Paste this link in your browser http://localhost:3000/user/resetPassword/${user.token.email_activate}`,
+    text: `Paste this link in your browser ${process.env.DOMAIN_NAME}/user/resetPassword/${user.token.email_activate}`,
     html: `<p>Sender Info</p>` +
     `<ul>` +
     `<li>Sender Email: ${req.body.email}</li>` +
-    `<li>Click on link to activate your account: <a href="http://localhost:3000/user/activate/${user.token.email_activate}">CLICK HERE</a></li>` +
+    `<li>Click on link to activate your account: <a href="${process.env.DOMAIN_NAME}/user/activate/${user.token.email_activate}">CLICK HERE</a></li>` +
     `</ul>`
   };
 
@@ -52,11 +52,11 @@ exports.sendEmailVerificationOnEmailChange = (req, res, user) => {
     from: 'fullauth@gmail.com',
     to: req.body.email,
     subject: 'FULL AUTH - EMAIL ACTIVATION',
-    text: `Paste this link in your browser: http://localhost:3000/user/resetPassword/${user.token.email_activate}`,
+    text: `Paste this link in your browser: ${process.env.DOMAIN_NAME}/user/resetPassword/${user.token.email_activate}`,
     html: `<p>Sender Info</p>` +
     `<ul>` +
     `<li>Sender Email: ${req.body.email}</li>` +
-    `<li>Click on link to activate your account: <a href="http://localhost:3000/user/activate/${user.token.email_activate}">CLICK HERE</a></li>` +
+    `<li>Click on link to activate your account: <a href="${process.env.DOMAIN_NAME}/user/activate/${user.token.email_activate}">CLICK HERE</a></li>` +
     `</ul>`
   };
 
@@ -79,11 +79,11 @@ exports.sendResetPasswordEmail = (req, res, user) => {
     from: 'fullauth@gmail.com',
     to: req.body.email,
     subject: 'Password Change Request',
-    text: `Paste this link in your browser http://localhost:3000/user/resetPassword/${user.token.reset_password}`,
+    text: `Paste this link in your browser ${process.env.DOMAIN_NAME}/user/resetPassword/${user.token.reset_password}`,
     html: `<p>Sender Info</p>` +
     `<ul>` +
     `<li>Sender Email: ${req.body.email}</li>` +
-    `<li>Click on link: <a href="http://localhost:3000/user/resetPassword/${user.token.reset_password}">CLICK HERE</a></li>` +
+    `<li>Click on link: <a href="${process.env.DOMAIN_NAME}/user/resetPassword/${user.token.reset_password}">CLICK HERE</a></li>` +
     `</ul>`
   };
 

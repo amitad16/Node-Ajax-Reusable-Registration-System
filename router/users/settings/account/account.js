@@ -116,6 +116,7 @@ router.post('/change_email', ifLoggedIn, (req, res) => {
   });
 });
 
+// TODO: Delete all the images linked to that account.
 router.post('/delete', ifLoggedIn, (req, res) => {
   User.deleteAccountById(req.user.id)
     .then(() => {

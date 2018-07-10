@@ -6,6 +6,7 @@ const { User } = require('../../../../models/user.model');
 const { upload } = require('../../../helper/multerConfigurations');
 const { ifLoggedIn, ifNotLoggedIn } = require('../../../helper/accessControlAndValidator');
 
+// TODO: Delete previous profile image from uploads
 router.post('/profile_img', ifLoggedIn, (req, res) => {
   upload(req, res, (err) => {
     if (err) {
