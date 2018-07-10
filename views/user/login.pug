@@ -14,7 +14,7 @@ block content
                     .row
                         //label.col-sm-4.control-label(for='username') Username
                         .col-12
-                            input#username.form-control(type='text', name='username', value='amit' placeholder='Username', aria-required='true', aria-describedby='username-error', aria-invalid='false')
+                            input#username.form-control(type='text', name='username', placeholder='Username', aria-required='true', aria-describedby='username-error', aria-invalid='false')
                             if (errors)
                                 if (errors.username)
                                     #username-error.error.invalid-feedback= errors.username.msg
@@ -22,7 +22,7 @@ block content
                     .row
                         //label.col-sm-4.control-label(for='password') Password
                         .col-12
-                            input#password.form-control.validate-equalTo-blur(type='password', name='password', value='!QAZ2wsx' placeholder='Password', aria-required='true', aria-describedby='password-error', aria-invalid='false')
+                            input#password.form-control.validate-equalTo-blur(type='password', name='password', placeholder='Password', aria-required='true', aria-describedby='password-error', aria-invalid='false')
                             if (errors)
                                 if (errors.password)
                                     #password-error.error.invalid-feedback= errors.password.msg
