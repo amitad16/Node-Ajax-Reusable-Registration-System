@@ -13,11 +13,11 @@ Create a file `config.json`
         "JWT_SECRET": "<Random string of any length>",
         "EMAIL_ID": "<Your email id>",
         "EMAIL_PASSWORD": "<Your password>",
-	"DOMAIN_NAME": "<eg: http://localhost:3000>"
+	    "DOMAIN_NAME": "<eg: http://localhost:3000>"
       }
     }
 
 ## Run Program
-Go to the directory path inside your terminal and run 
+Go to the directory path inside your terminal and run
 - `npm install`
 - `npm start`
