@@ -1,5 +1,8 @@
 # Node-Ajax-Reusable-Registration-System
-A reusable login and registration system using NodeJs + Express + MongoDB + AJAX. All the features which are expected from a registration system are implemented, with both front-end and back-end validations.
+A [reusable login and registration system](https://thawing-sierra-18075.herokuapp.com/) using NodeJs + Express + MongoDB + AJAX. All the features which are expected from a registration system are implemented, with both front-end and back-end validations.
+
+## See the working here:
+[https://thawing-sierra-18075.herokuapp.com/](https://thawing-sierra-18075.herokuapp.com/)
 
 ## Usage
 Goto `server > config`
