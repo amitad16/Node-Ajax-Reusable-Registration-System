@@ -8,11 +8,12 @@ Create a file `config.json`
 #### Add the below code to above path
     {
       "development": {
-        "PORT": 3000,  // Port
-        "MONGODB_URI": "mongodb://<dbuser>:<dbpassword><host>:<port>/<databasename>",  // mongodb://localhost:27017/databasename
-        "JWT_SECRET": "",  // Random string of any length
-        "EMAIL_ID": "",  // Your email id
-        "EMAIL_PASSWORD": ""  // Your password
+        "PORT": <PORT>,
+        "MONGODB_URI": "<mongodb://localhost:27017/yourdatabasename>",
+        "JWT_SECRET": "<Random string of any length>",
+        "EMAIL_ID": "<Your email id>",
+        "EMAIL_PASSWORD": "<Your password>",
+	"DOMAIN_NAME": "<eg: http://localhost:3000>"
       }
     }
 
